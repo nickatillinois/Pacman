@@ -3,13 +3,21 @@ package pacman;
 import java.util.Arrays;
 import java.util.Random;
 
+import pacman.wormholes.ArrivalPortal;
+import pacman.wormholes.DeparturePortal;
+import pacman.wormholes.Wormhole;
+
 public class Maze {
+	
 	
 	private Random random;
 	private MazeMap map;
 	private PacMan pacMan;
 	private Ghost[] ghosts;
 	private FoodItem[] foodItems;
+	private DeparturePortal[] departurePortals;
+	private ArrivalPortal[] arrivalPortals;
+	private Wormhole[] wormholes;
 	
 	public MazeMap getMap() { return map; }
 	
@@ -19,12 +27,29 @@ public class Maze {
 	
 	public FoodItem[] getFoodItems() { return foodItems.clone(); }
 	
-	public Maze(Random random, MazeMap map, PacMan pacMan, Ghost[] ghosts, FoodItem[] foodItems) {
+	public DeparturePortal[] getDeparturePortals() {
+		return departurePortals;
+	}
+
+	public ArrivalPortal[] getArrivalPortals() {
+		return arrivalPortals;
+	}
+
+	public Wormhole[] getWormholes() {
+		return wormholes;
+	}
+	
+	public Maze(Random random, MazeMap map, PacMan pacMan, Ghost[] ghosts, FoodItem[] foodItems, 
+			DeparturePortal[] departurePortals, ArrivalPortal[] arrivalPortals, Wormhole[] wormholes
+	 ) {
 		this.random = random;
 		this.map = map;
 		this.pacMan = pacMan;
 		this.ghosts = ghosts.clone();
 		this.foodItems = foodItems.clone();
+		this.departurePortals = departurePortals.clone();
+		this.arrivalPortals = arrivalPortals.clone();
+		this.wormholes = wormholes.clone();
 	}
 	
 	public boolean isCompleted() {
