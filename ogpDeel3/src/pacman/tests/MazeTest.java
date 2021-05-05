@@ -13,12 +13,13 @@ import pacman.Maze;
 import pacman.MazeDescriptions;
 import pacman.PowerPellet;
 import pacman.Square;
+import pacman.wormholes.DeparturePortal;
 
 class MazeTest {
 	
 	Maze maze = MazeDescriptions.createMazeFromDescription(new Random(), """
 			#####################
-			#.........#.........#
+			#A........#........D#
 			#.###.###.#.###.###.#
 			#p###.###.#.###.###p#
 			#.###.###.#.###.###.#
@@ -30,7 +31,7 @@ class MazeTest {
 			    #.#   G   #.#    
 			    #.# #   # #.#    
 			#####.# #   # #.#####
-			     .  #GGG#  .     
+			  D  .  #GGG#  .  A  
 			#####.# ##### #.#####
 			    #.#       #.#    
 			    #.# ##### #.#    
@@ -42,7 +43,7 @@ class MazeTest {
 			###.#.#.#####.#.#.###
 			#.....#...#...#.....#
 			#.#######.#.#######.#
-			#...................#
+			#D.................A#
 			#####################
 			""");
 	PowerPellet[] powerPellets =
@@ -65,5 +66,13 @@ class MazeTest {
 	void testGetSize() {
 		assert powerPellets[0].getSize() == 2;
 	}
-	
+	@Test
+	void testGetDeparturePortals() {
+		DeparturePortal[] gesorteerdeDepPortals = maze.getDeparturePortals();
+		assert gesorteerdeDepPortals.length == 3;
+		assert gesorteerdeDepPortals[0].getSquare().getColumnIndex() == 19;
+		assert gesorteerdeDepPortals[0].getSquare().getRowIndex() == 1;
+		assert gesorteerdeDepPortals[2].getSquare().getRowIndex() == 25;
+		assert gesorteerdeDepPortals[2].getSquare().getColumnIndex() == 1;
+	}
 }
