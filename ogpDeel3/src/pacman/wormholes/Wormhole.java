@@ -18,6 +18,10 @@ public class Wormhole {
 	}
 
 	public DeparturePortal getDeparturePortal() {
+		if (this == null)
+			throw new IllegalArgumentException("`this wormhole is null!");
+		if (this.departurePortal == null)
+			throw new IllegalArgumentException("`this wormhole's arrivalportal is null!");
 		return departurePortal;
 	}
 

@@ -16,7 +16,7 @@ public class Maze {
 	private FoodItem[] foodItems;
 	private DeparturePortal[] departurePortals;
 	private ArrivalPortal[] arrivalPortals;
-	private Wormhole[] wormholes = new Wormhole[1];
+	private Wormhole[] wormholes;
 
 	public MazeMap getMap() { return map; }
 	
@@ -38,7 +38,7 @@ public class Maze {
 		return wormholes;
 	}
 	private void setWormholes(Wormhole[] wormholes) {
-		this.wormholes = wormholes;
+		this.wormholes = wormholes.clone();
 	}
 	
 	public Maze(Random random, MazeMap map, PacMan pacMan, Ghost[] ghosts, FoodItem[] foodItems, 
@@ -96,10 +96,21 @@ public class Maze {
 			}
 		}
 		if (arrival & departure) {
-			Wormhole[] wormCopy = this.getWormholes().clone();
-			Wormhole[] wormholes = new Wormhole[this.getWormholes().length + 1];
-			System.arraycopy(wormCopy, 0, wormholes, 0, this.getWormholes().length - 1);
-			this.setWormholes(wormholes);
+			if(this.getWormholes() == null) {
+				Wormhole[] firstWormholes = new Wormhole[1];
+				firstWormholes[0] = wormhole;
+				this.setWormholes(firstWormholes);
+			}
+			else {
+				int n = this.getWormholes().length;
+				Wormhole[] wormCopy = this.getWormholes().clone();
+				Wormhole[] newWormholes = new Wormhole[n + 1];
+				for(int i = 0; i < n; i++){
+					newWormholes[i] = wormCopy[i];
+				}
+				newWormholes[n] = wormhole;
+				this.setWormholes(newWormholes);
+			}
 		}
 	}
 	
