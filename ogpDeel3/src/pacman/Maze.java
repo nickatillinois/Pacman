@@ -28,6 +28,19 @@ public class Maze {
 	public FoodItem[] getFoodItems() { return foodItems.clone(); }
 	
 	public DeparturePortal[] getDeparturePortals() {
+		int m = this.getMap().getWidth();
+		int n = this.getMap().getHeight();
+		DeparturePortal[] sortedDeparturePortals = new DeparturePortal[this.departurePortals.length];
+		int arrayCounter = 0;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				for(DeparturePortal deze: departurePortals) {
+					if (deze.getSquare().getRowIndex() == i & deze.getSquare().getColumnIndex() == j) {
+						sortedDeparturePortals[arrayCounter++] = deze;
+					}
+				}
+			}
+		}
 		return departurePortals;
 	}
 
@@ -40,7 +53,7 @@ public class Maze {
 	}
 	
 	public Maze(Random random, MazeMap map, PacMan pacMan, Ghost[] ghosts, FoodItem[] foodItems, 
-			DeparturePortal[] departurePortals, ArrivalPortal[] arrivalPortals, Wormhole[] wormholes
+			DeparturePortal[] departurePortals, ArrivalPortal[] arrivalPortals
 	 ) {
 		this.random = random;
 		this.map = map;
@@ -49,7 +62,6 @@ public class Maze {
 		this.foodItems = foodItems.clone();
 		this.departurePortals = departurePortals.clone();
 		this.arrivalPortals = arrivalPortals.clone();
-		this.wormholes = wormholes.clone();
 	}
 	
 	public boolean isCompleted() {
