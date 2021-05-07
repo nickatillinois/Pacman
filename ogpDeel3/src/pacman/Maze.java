@@ -152,18 +152,23 @@ public class Maze {
 			}
 		}
 	}
+	// Dus de gegeven square is een departureportal met minstens 1 wormhole
 	private Square pickWormhole(Square square) {
-		
+		// Pak de departureportal die met deze square geassocieerd is
 		for(DeparturePortal deze : this.getDeparturePortals()) {
 			if (deze.getSquare().equals(square)){
+				// Maak een array van alle geassocieerde wormholes met deze departurportal
 				Wormhole[] arrayOfHoles = new Wormhole[deze.getWormholes().size()];
 				deze.getWormholes().toArray(arrayOfHoles);
+				// kies een willekeurige wormhole uit deze array, en pak de square daarvan
 				Square nextSquare = arrayOfHoles[random.nextInt(arrayOfHoles.length)].getArrivalPortal().getSquare();
+				// return de square van deze wormhole
 				return nextSquare;
 			}
 		}return null;
 		
 	}
+	// checkt of een gegeven square een departureportal is, en zo ja, of het ook met minstens 1 wormhole geassocieerd wordt
 	private boolean checkDeparturePortal(Square square) {
 		for(DeparturePortal deze : this.getDeparturePortals()) {
 			if (deze.getSquare().equals(square) & deze.getWormholes().size() > 0){
