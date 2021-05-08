@@ -35,6 +35,7 @@ public class DeparturePortal {
 	 * @post The set is not null and has at least a size of 0
 	 *  	| result != null && result.size() >= 0
 	 * @basic
+	 * @creates | result
 	 */
 	public Set<Wormhole> getWormholes() {
 		Set<Wormhole> wormholesDep = new HashSet<>();
@@ -45,7 +46,7 @@ public class DeparturePortal {
 				wormholesDep.add(deze);
 			}
 		}
-		return wormholesDep;
+		return Set.copyOf(wormholesDep);
 	}
 
 	/**

@@ -8,6 +8,10 @@ import java.util.*;
  * representing the 'exit square'.
  * @invar Neither are null at any point in time
  * 		|getArrivalPortal() != null && getDeparturePortal() != null
+ * @invar The wormhole is in the wormhole set of the departure portal of this wormhole
+ * 		| getDeparturePortal().getWormholes().contains(this)
+ * @invar The wormhole is in the wormhole set of the arrival portal of this wormhole
+ * 		| getArrivalPortal().getWormholes().contains(this)
  */
 public class Wormhole {
 	
@@ -57,7 +61,8 @@ public class Wormhole {
 	 * @post This wormhole's departurePortal remained unchanged.
 	 * 		| getDeparturePortal() == old(getDeparturePortal())
 	 * @post The set of wormholes associated with the arrivalPortal remained unchanged
-	 * 		| getDeparturePortal().getWormholes().containsAll(old(getDeparturePortal()).getWormholes()) && getDeparturePortal().getWormholes().size() == old(getDeparturePortal()).getWormholes().size() 
+	 * 		| getDeparturePortal().getWormholes().containsAll(old(getDeparturePortal()).getWormholes()) 
+	 * 		| && getDeparturePortal().getWormholes().size() == old(getDeparturePortal()).getWormholes().size() 
 	 * @mutates | this
 	 * 
 	 */
@@ -91,7 +96,8 @@ public class Wormhole {
 	
 	/**
 	 * Initializes this wormhole so that its departure portal is the given departure portal, and its arrival portal is the given departure portal.
-	 * 
+	 * @mutates_properties | departurePortal.getWormholes()
+	 * @mutates_properties | arrivalPortal.getWormholes()
 	 * @throws IllegalArgumentException | departurePortal == null
 	 * @throws IllegalArgumentException | arrivalPortal == null
 	 * 
@@ -109,7 +115,4 @@ public class Wormhole {
 		this.departurePortal = departurePortal;
 		Wormhole.wormholes.add(this);
 	}
-
-	
-
 }
